@@ -6,9 +6,9 @@ import prompts from "prompts";
 import validatePackageName from "validate-npm-package-name";
 
 const initScriptDir = path.dirname(url.fileURLToPath(import.meta.url));
+const rootDir = path.resolve(initScriptDir, "..");
 
 async function updateRootPackage(updateFn) {
-  const rootDir = path.resolve(initScriptDir, "..");
   const pkgPath = path.join(rootDir, "package.json");
   const pkg = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
   const updatedPkg = updateFn(pkg);
@@ -24,7 +24,7 @@ const { projectName } = await prompts({
   type: "text",
   name: "projectName",
   message: "What would you like to name your project?",
-  initial: "my-project",
+  initial: path.basename(rootDir),
   validate: (name) => {
     const { validForNewPackages, errors } = validatePackageName(name);
     if (!validForNewPackages) {
