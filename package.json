@@ -1,0 +1,10 @@
+{
+  "name": "template-init-script-example",
+  "private": true,
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "preinstall": "cd .init-script && npm install --silent --package-lock=false && node ."
+  }
+}
