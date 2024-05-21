@@ -10,12 +10,12 @@ Since this script only needs to run once, we need a way to isolate it from the r
 
 ## How?
 
-This template features a `preinstall` script which is run automatically when installing dependencies. This script does the following:
+This template features a `postinstall` script which is run automatically after installing dependencies. This script does the following:
 
 - Install dependencies for the `.init-script` directory
 - Run `.init-script/index.js`
 - Delete the `.init-script` directory
-- Remove the `preinstall` script from `package.json` so it doesn't run again
+- Remove the `postinstall` script from `package.json` so it doesn't run again
 
 ## Try it
 

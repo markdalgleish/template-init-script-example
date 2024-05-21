@@ -18,7 +18,33 @@ async function updateRootPackage(updateFn) {
   );
 }
 
-console.log(chalk.blue(`\nRunning the template's "init" script...\n`));
+async function detectPackageManager() {
+  const detect = (name, file) =>
+    fs
+      .access(path.join(rootDir, file))
+      .then(() => name)
+      .catch(() => null);
+
+  return (
+    (await detect("pnpm", "pnpm-lock.yaml")) ??
+    (await detect("yarn", "yarn.lock")) ??
+    (await detect("bun", "bun.lockb")) ??
+    "npm"
+  );
+}
+
+const packageManager = await detectPackageManager();
+
+console.log(
+  chalk.blue(
+    [
+      "",
+      `Installed dependencies with ${chalk.white(packageManager)}`,
+      `Running template init script...`,
+      "",
+    ].join("\n")
+  )
+);
 
 const { projectName } = await prompts({
   type: "text",
@@ -47,6 +73,14 @@ await fs.writeFile(
     "",
     `This project was generated from a template.`,
     "",
+    `## Setup`,
+    "",
+    `This project uses \`${packageManager}\` to manage dependencies.`,
+    "",
+    "```bash",
+    `${packageManager} install`,
+    "```",
+    "",
   ].join("\n"),
   "utf-8"
 );
@@ -54,7 +88,7 @@ await fs.writeFile(
 // Clean up the init script
 await fs.rm(initScriptDir, { recursive: true });
 updateRootPackage((pkg) => {
-  delete pkg.scripts.preinstall;
+  delete pkg.scripts.postinstall;
 });
 
-console.log(chalk.green(`\n✔ Template's "init" script finished successfully`));
+console.log(chalk.green(`\n✔ Template init script finished successfully`));
