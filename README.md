@@ -1,6 +1,16 @@
 # template-init-script-example
 
-This is an example of a template repository with a single-use "init" script, contained in the `.init-script` directory.
+Example template with a single-use "init" script that runs on first `npm install`, then removes itself from the repo.
+
+## Try it out
+
+Clone this template using [degit](https://github.com/Rich-Harris/degit):
+
+```bash
+npx degit markdalgleish/template-init-script-example my-app
+cd my-app
+npm install
+```
 
 ## Why?
 
@@ -16,16 +26,6 @@ This template features a `postinstall` script which is run automatically after i
 - Run `.init-script/index.js`
 - Delete the `.init-script` directory
 - Remove the `postinstall` script from `package.json` so it doesn't run again
-
-## Try it
-
-You can try out this example template using [degit](https://github.com/Rich-Harris/degit):
-
-```bash
-npx degit markdalgleish/template-init-script-example my-new-project
-cd my-new-project
-npm install
-```
 
 ## Credit
 
