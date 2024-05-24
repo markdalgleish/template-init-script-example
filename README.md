@@ -22,7 +22,7 @@ This template features a `postinstall` script which is run automatically after i
 You can try out this example template using [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
-degit markdalgleish/template-init-script-example my-new-project
+npx degit markdalgleish/template-init-script-example my-new-project
 cd my-new-project
 npm install
 ```
