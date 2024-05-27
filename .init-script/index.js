@@ -110,9 +110,9 @@ function fsExists(file) {
 
 function detectPackageManager() {
   return (
-    (fsExists("pnpm-lock.yaml") && "pnpm") ??
-    (fsExists("yarn.lock") && "yarn") ??
-    (fsExists("bun.lockb") && "bun") ??
+    (fsExists("pnpm-lock.yaml") && "pnpm") ||
+    (fsExists("yarn.lock") && "yarn") ||
+    (fsExists("bun.lockb") && "bun") ||
     "npm"
   );
 }
