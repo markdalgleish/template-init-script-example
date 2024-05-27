@@ -76,12 +76,13 @@ fs.writeFileSync(
   "utf-8"
 );
 
-// Clean up the init script
+// Clean up the init script and template license
 console.log(chalk.blue(`\nCleaning up init script...`));
 fs.rmSync(initScriptDir, { recursive: true });
-console.log(chalk.blue(`Cleaning up package.json scripts...`));
+console.log(chalk.blue(`Cleaning up package.json...`));
 modifyRootPackage((pkg) => {
   delete pkg.scripts.postinstall;
+  delete pkg.license;
 });
 
 if (gitInit) {
